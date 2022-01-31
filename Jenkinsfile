@@ -1,16 +1,27 @@
 node {
-    def app
-      stage('Clone') {
-     	  checkout scm
-      }
-      stage('Build image') {
-      	  app = docker.build("namkant/nginx")
-      }
-      stage('Test image') {
-        docker.image('namkant/nginx').withRun('-p 8001:80') { c ->
-        sh 'docker ps'
-        sh 'curl localhost'
+
+   def registryProjet='namkant/Jenkins_Build_Docker'
+   def IMAGE="${registryProjet}:version-${env.BUILD_ID}"
+
+    stage('Clone') {
+          checkout scm
     }
 
+    def img = stage('Build') {
+          docker.build("$IMAGE",  '.')
     }
+
+    stage('Run') {
+          img.withRun("--name run-$BUILD_ID -p 8002:80") { c ->
+            sh 'curl localhost'
+          }
+    }
+
+    stage('Push') {
+          docker.withRegistry('https://github.com/namkant/Jenkins_Build_Docker/') {
+              img.push 'latest'
+              img.push()
+          }
+    }
+
 }
