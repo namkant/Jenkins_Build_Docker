@@ -18,7 +18,7 @@ node {
     }
 
     stage('Push') {
-          docker.withRegistry('${registryProjet}', 'reg1') {
+          docker.withRegistry('https://github.com/namkant/Jenkins_Build_Docker', 'reg1') {
               img.push()
           }
     }
