@@ -1,6 +1,6 @@
 node {
 
-   def registryProjet='github.com/namkant/Jenkins_Build_Docker/'
+   def registryProjet='registry:8080/jenkins_Docker'
    def IMAGE="${registryProjet}:version-${env.BUILD_ID}"
 
     stage('Clone') {
