@@ -1,6 +1,6 @@
 node {
 
-   def registryProjet='jenkins_Docker'
+   def registryProjet='namkant/mesimages'
    def IMAGE="${registryProjet}:version-${env.BUILD_ID}"
 
     stage('Clone') {
