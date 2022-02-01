@@ -18,7 +18,7 @@ node {
     }
 
     stage('Push') {
-          docker.withRegistry('https://hub.docker.com/repository/docker/namkant/mesimages') {
+          docker.withRegistry('namkant/mesimages') {
               img.push 'latest'
               img.push()
           }
